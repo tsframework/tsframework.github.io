@@ -309,13 +309,12 @@ user.save((err) =&gt; {
 
 <pre><code>&lt;html&gt;
     &lt;head&gt;
-    &lt;title&gt;&lt;/title&gt;
+        &lt;title&gt;&lt;/title&gt;
     &lt;/head&gt;
     &lt;body&gt;
-    &lt;%- body %&gt;
+        &lt;%- body %&gt;
     &lt;/body&gt;
-    &lt;html&gt;
-</code></pre>
+&lt;html&gt;</code></pre>
 
 <h3 id="sections--contentfor">Sections &amp; contentFor</h3>
 
@@ -325,29 +324,27 @@ user.save((err) =&gt; {
 
 <pre><code>&lt;h1&gt;Hello world!&lt;/h1&gt;
 
-    &lt;%- contentFor('header') %&gt;
-    &lt;style&gt;...&lt;/style&gt;
+&lt;%- contentFor('header') %&gt;
+&lt;style&gt;...&lt;/style&gt;
 
-    &lt;%- contentFor('footer') %&gt;
-    &lt;script&gt;...&lt;/script&gt;
-</code></pre>
+&lt;%- contentFor('footer') %&gt;
+&lt;script&gt;...&lt;/script&gt;</code></pre>
 
 <p>With a layout:</p>
 
 <pre><code>&lt;html&gt;
     &lt;head&gt;
-    &lt;title&gt;&lt;/title&gt;
-    &lt;%- header %&gt;
+        &lt;title&gt;&lt;/title&gt;
+        &lt;%- header %&gt;
     &lt;/head&gt;
     &lt;body&gt;
-    &lt;%- body %&gt;
+        &lt;%- body %&gt;
 
-    &lt;footer&gt;
-    &lt;%- footer %&gt;
-    &lt;/footer&gt;
+        &lt;footer&gt;
+            &lt;%- footer %&gt;
+        &lt;/footer&gt;
     &lt;/body&gt;
-    &lt;html&gt;
-</code></pre>
+&lt;html&gt;</code></pre>
 
 <h4 id="optional-section">Optional section:</h4>
 
@@ -355,14 +352,13 @@ user.save((err) =&gt; {
 
 <pre><code>&lt;html&gt;
     &lt;head&gt;
-    &lt;title&gt;&lt;/title&gt;
-    &lt;%- defineContent('header') %&gt;
+        &lt;title&gt;&lt;/title&gt;
+        &lt;%- defineContent('header') %&gt;
     &lt;/head&gt;
     &lt;body&gt;
-    &lt;%- body %&gt;
+        &lt;%- body %&gt;
     &lt;/body&gt;
-    &lt;html&gt;
-</code></pre>
+&lt;html&gt;</code></pre>
 
 <h3 id="partials">Partials</h3>
 
@@ -370,14 +366,13 @@ user.save((err) =&gt; {
 
 <pre><code>&lt;html&gt;
     &lt;head&gt;
-    &lt;title&gt;&lt;/title&gt;
+        &lt;title&gt;&lt;/title&gt;
     &lt;/head&gt;
     &lt;body&gt;
-    &lt;%- include my_partial.ejs %&gt;
-    &lt;%- body %&gt;
+        &lt;%- include my_partial.ejs %&gt;
+        &lt;%- body %&gt;
     &lt;/body&gt;
-    &lt;html&gt;
-</code></pre>
+&lt;html&gt;</code></pre>
 
 <p>For more information EJS template syntax, please see <a href="http://embeddedjs.com/getting_started.html">EJS documentation</a>.</p>
 
