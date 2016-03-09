@@ -1,13 +1,13 @@
 ---
 layout: documentation
-title: TypeMVC - Documentation
+title: TSFramework - Documentation
 ---
 
-<h1 id="what-is-typemvc">What is TypeMVC?</h1>
+<h1 id="what-is-typemvc">What is TSFramework?</h1>
 
-<p>TypeMVC is web application framework that implements the model-view-controller (MVC) pattern which runs via Node.js and TypeScript programming language. It is designed to assemble other MVC frameworks like Ruby on Rails, Zend, ASP.NET MVC etc.. TypeMVC combines the performance of NodeJS platform together with the power of TypeScript to give you a web framework that is fast and scalable.</p>
+<p>TSFramework is web application framework that implements the model-view-controller (MVC) pattern which runs via Node.js and TypeScript programming language. It is designed to assemble other MVC frameworks like Ruby on Rails, Zend, ASP.NET MVC etc.. TSFramework combines the performance of NodeJS platform together with the power of TypeScript to give you a web framework that is fast and scalable.</p>
 
-<p>TypeMVC does a few things different from other web frameworks:</p>
+<p>TSFramework does a few things different from other web frameworks:</p>
 
 <h2 id="typescript">TypeScript</h2>
 
@@ -19,7 +19,7 @@ title: TypeMVC - Documentation
 
 <h2 id="express">Express</h2>
 
-<p>TypeMVC controllers are really just Express middlewares. TypeMVC uses the Express v4 and supports the existing ecosystem of Express middleware.</p>
+<p>TSFramework controllers are really just Express middlewares. TSFramework uses the Express v4 and supports the existing ecosystem of Express middleware.</p>
 
 <h2 id="rest-routing">REST Routing</h2>
 
@@ -37,7 +37,7 @@ title: TypeMVC - Documentation
 
 <h2 id="action-parameters">Action Parameters</h2>
 
-<p>You can also pass parameters into action and TypeMVC will automatically convert data into correct type for you:</p>
+<p>You can also pass parameters into action and TSFramework will automatically convert data into correct type for you:</p>
 
 <pre><code>class HomeController extends TF.Controller {
     hello(name: string) {
@@ -55,7 +55,7 @@ title: TypeMVC - Documentation
 
 <h2 id="reply-interface">Reply Interface</h2>
 
-<p>Every controller in TypeMVC inherits the Reply interface which is implemented in the base controller. This interface is mainly used for sending data back to user.</p>
+<p>Every controller in TSFramework inherits the Reply interface which is implemented in the base controller. This interface is mainly used for sending data back to user.</p>
 
 <h3 id="send-a-text-response">Send a text response</h3>
 
@@ -99,7 +99,7 @@ this.redirect(url: string, status: number);</code></pre>
     <li><code>request.host</code>: returns the hostname from the “Host” header field.</li>
 </ul>
 
-<p>The TypeMVC request object extends Express Request object. You can check out the <a href="http://expressjs.com/4x/api.html">Express guide</a> for more information.</p>
+<p>The TSFramework request object extends Express Request object. You can check out the <a href="http://expressjs.com/4x/api.html">Express guide</a> for more information.</p>
 
 <h2 id="response-object">Response Object</h2>
 
@@ -193,7 +193,7 @@ class UserController extends TF.Controller {
 
 <h1 id="models">Models</h1>
 
-<p>TypeMVC uses Waterline ORM (created by Sails.js). Waterline allows developers to interact with models the same way regardless of data source they’re using.</p>
+<p>TSFramework uses Waterline ORM (created by Sails.js). Waterline allows developers to interact with models the same way regardless of data source they’re using.</p>
 
 <p>Models are defined in the <code>/app/models/</code> folder .To create a model, just extends TF.Model. The following User model defines 3 attributes <code>name</code>, <code>email</code> and  <code>age</code>:</p>
 
@@ -277,7 +277,7 @@ user.save((err) =&gt; {
 
 <h1 id="view-engine">View Engine</h1>
 
-<p>TypeMVC uses <a href="http://embeddedjs.com">EJS</a> for its view engine. To render a view you would use <code>response.render</code> in your controller action:</p>
+<p>TSFramework uses <a href="http://embeddedjs.com">EJS</a> for its view engine. To render a view you would use <code>response.render</code> in your controller action:</p>
 
 <pre><code>index(name: string) {
     this.response.render('index', { user: name });
@@ -289,7 +289,7 @@ user.save((err) =&gt; {
 
 <h2 id="structuring-layouts">Structuring Layouts</h2>
 
-<p>When TypeMVC renders a view as a response, it does so by combining the view with the current layout. Within a layout, you have access to these tools for combining different bits of output to form the overall response:</p>
+<p>When TSFramework renders a view as a response, it does so by combining the view with the current layout. Within a layout, you have access to these tools for combining different bits of output to form the overall response:</p>
 
 <ul>
     <li>Body</li>
@@ -378,7 +378,7 @@ user.save((err) =&gt; {
 
 <h1 id="routing">Routing</h1>
 
-<p>TypeMVC routes are normally declared in Global.ts via <code>app.router</code>. When you generate a new app, these routes are generated for you by default:</p>
+<p>TSFramework routes are normally declared in Global.ts via <code>app.router</code>. When you generate a new app, these routes are generated for you by default:</p>
 
 <pre><code>// default routes
     app.router.map('/', { controller: 'Home', action: 'index' });
@@ -397,7 +397,7 @@ user.save((err) =&gt; {
 
 <h2 id="crud-and-actions">CRUD and Actions</h2>
 
-<p>In TypeMVC, a resourceful route provides a mapping between HTTP verbs and URLs to controller actions. By convention, each action also maps to particular CRUD operations in a database. To generate default CRUD actions for your controller you just need to assign a Model to your controller:</p>
+<p>In TSFramework, a resourceful route provides a mapping between HTTP verbs and URLs to controller actions. By convention, each action also maps to particular CRUD operations in a database. To generate default CRUD actions for your controller you just need to assign a Model to your controller:</p>
 
 <pre><code>UserController.model = User;</code></pre>
 
@@ -413,7 +413,7 @@ user.save((err) =&gt; {
 
 <h2 id="resourceful-routing">Resourceful Routing</h2>
 
-<p>By default, TypeMVC also generates a REST routes for any controller with a model attached:</p>
+<p>By default, TSFramework also generates a REST routes for any controller with a model attached:</p>
 
 <pre><code>// REST routes
     app.router.get('/:controller/:id?', { action: 'find' });
@@ -424,7 +424,7 @@ user.save((err) =&gt; {
 
 <h1 id="configuration">Configuration</h1>
 
-<p>TypeMVC configuration settings are defined in <code>app.json</code> in JSON format:</p>
+<p>TSFramework configuration settings are defined in <code>app.json</code> in JSON format:</p>
 
 <pre><code>{
     "port": 3000,
