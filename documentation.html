@@ -31,20 +31,20 @@ title: TSFramework - Documentation
     <p>Controllers are defined in the <code>/app/controllers/</code> folder. Creating a new controller is easy, all you need to do is extend the TS.Controller. The following controller defines a single action named <code>index</code> that returns ‘Hello world’:</p>
 
     <pre><code>class HomeController extends TS.Controller {
-        index() {
-            this.content('Hello world!');
-        }
-    }</code></pre>
+    index() {
+        this.content('Hello world!');
+    }
+}</code></pre>
 
     <h2 id="action-parameters">Action Parameters</h2>
 
     <p>You can also pass parameters into action and TSFramework will automatically convert data into correct type for you:</p>
 
     <pre><code>class HomeController extends TS.Controller {
-        hello(name: string) {
-            this.content('Hello: ' + name);
-        }
-    }</code></pre>
+    hello(name: string) {
+        this.content('Hello: ' + name);
+    }
+}</code></pre>
 
     <p>If your visit the action with <code>/hello?name=John</code> for example, the action will render ‘Hello John’. The parameter doesn’t have to be a query string, it could be any of these in this order:</p>
 
@@ -61,7 +61,7 @@ title: TSFramework - Documentation
     <h3 id="send-a-text-response">Send a text response</h3>
 
     <pre><code>this.content(text: string);
-    this.content(text: string, contentType: string);</code></pre>
+this.content(text: string, contentType: string);</code></pre>
 
     <h3 id="send-a-json-response">Send a JSON response</h3>
 
@@ -70,7 +70,7 @@ title: TSFramework - Documentation
     <h3 id="render-a-view">Render a view</h3>
 
     <pre><code>this.view(template: string);
-    this.view(template: string, options: {});</code></pre>
+this.view(template: string, options: {});</code></pre>
 
     <h3 id="send-a-response-from-file">Send a response from file</h3>
 
@@ -79,14 +79,14 @@ title: TSFramework - Documentation
     <h3 id="download-a-file">Download a file</h3>
 
     <pre><code>this.download(path: string);
-    this.download(path: string, filename: string);</code></pre>
+this.download(path: string, filename: string);</code></pre>
 
     <h3 id="redirect-to-a-url">Redirect to a url</h3>
 
     <p>Redirect to the given url with optional status code defaulting to 302 “Found”:</p>
 
     <pre><code>this.redirect(url: string);
-    this.redirect(url: string, status: number);</code></pre>
+this.redirect(url: string, status: number);</code></pre>
 
     <h2 id="request-object">Request Object</h2>
 
@@ -109,18 +109,18 @@ title: TSFramework - Documentation
     <h3 id="get-or-set-response-status">Get or set response status:</h3>
 
     <pre><code>this.response.setStatus(404);
-    this.response.getStatus();</code></pre>
+this.response.getStatus();</code></pre>
 
     <h3 id="get-or-set-response-header">Get or set response header:</h3>
 
     <pre><code>this.response.setHeader('Content-Type', 'text/plain');
-    this.response.getHeader('Content-Type');</code></pre>
+this.response.getHeader('Content-Type');</code></pre>
 
     <h3 id="set-or-remove-a-cookie">Set or remove a cookie</h3>
 
     <pre><code>this.response.setCookie('name', 'john', { domain: '.example.com', path: '/admin', secure: true });
-    this.response.removeCookie('name');
-    this.response.removeCookie('name', '/admin');</code></pre>
+this.response.removeCookie('name');
+this.response.removeCookie('name', '/admin');</code></pre>
 
     <h3 id="set-response-content-type">Set response content type:</h3>
 
@@ -131,9 +131,9 @@ title: TSFramework - Documentation
     <p>Join the given links to populate the “Link” response header field:</p>
 
     <pre><code>this.response.setLinks({
-        next: 'http://api.example.com/users?page=2',
-        last: 'http://api.example.com/users?page=5'
-    });</code></pre>
+    next: 'http://api.example.com/users?page=2',
+    last: 'http://api.example.com/users?page=5'
+});</code></pre>
 
     <h3 id="get-or-set-local-data">Get or set local data</h3>
 
@@ -148,41 +148,41 @@ title: TSFramework - Documentation
     <p>Filters may halt the request cycle. A common filter is one which requires that a user is logged in for an action to be run. You can add a filter to a controller this way by passing a function that accepts TS.ActionFilterContext as a parameter:</p>
 
     <pre><code>class UserController extends TS.Controller {
-        static configure() {
-            this.addBeforeFilter(this.authenticate);
-        }
+    static configure() {
+        this.addBeforeFilter(this.authenticate);
+    }
 
-        static authenticate(context: TS.ActionFilterContext) {
-            var isAuthenticated = ...;
-            if (!isAuthenticated)
-                context.reply.redirect('/login');
-            else
-                context.next();
-        }
-    }</code></pre>
+    static authenticate(context: TS.ActionFilterContext) {
+        var isAuthenticated = ...;
+        if (!isAuthenticated)
+            context.reply.redirect('/login');
+        else
+            context.next();
+    }
+}</code></pre>
 
     <p>Alternatively you can also create a class that extends TS.ActionFilter. The advantage of doing this is that you can have both <code>before</code> and <code>after</code> filters in the same class which will create a <code>around</code> filter:</p>
 
     <pre><code>class SpeedLogger extends TS.ActionFilter {
-        private start: number;
+    private start: number;
 
-        before(context: TS.IActionFilterContext) {
-            this.start = new Date().getTime();
-            context.next();
-        }
-
-        after(context: TS.IActionFilterContext) {
-            var elapse = new Date().getTime() - this.start;
-            ...
-            context.next();
-        }
+    before(context: TS.IActionFilterContext) {
+        this.start = new Date().getTime();
+        context.next();
     }
 
-    class UserController extends TS.Controller {
-        static configure() {
-            this.addFilter(SpeedLogger);
-        }
-    }</code></pre>
+    after(context: TS.IActionFilterContext) {
+        var elapse = new Date().getTime() - this.start;
+        ...
+        context.next();
+    }
+}
+
+class UserController extends TS.Controller {
+    static configure() {
+        this.addFilter(SpeedLogger);
+    }
+}</code></pre>
 
     <p>Action filters by default will be applied to all actions, but your can also exclude some actions:</p>
 
@@ -199,22 +199,22 @@ title: TSFramework - Documentation
     <p>Models are defined in the <code>/app/models/</code> folder .To create a model, just extends TS.Model. The following User model defines 3 attributes <code>name</code>, <code>email</code> and  <code>age</code>:</p>
 
     <pre><code>class User extends TS.Model {
-        name: string;
-        email: string;
-        age: number;
-    }</code></pre>
+    name: string;
+    email: string;
+    age: number;
+}</code></pre>
 
     <p>Model attributes can also be validated like so:</p>
 
     <pre><code>class User extends TS.Model {
-        name: string;
-        email: string;
-        age: number;
+    name: string;
+    email: string;
+    age: number;
 
-        static configure() {
-            this.validate('age', { required: false, min: 18 });
-        }
-    }</code></pre>
+    static configure() {
+        this.validate('age', { required: false, min: 18 });
+    }
+}</code></pre>
 
     <p>Available validations:</p>
 
@@ -225,31 +225,31 @@ title: TSFramework - Documentation
     <h2 id="save-a-model">Save a Model</h2>
 
     <pre><code>var user = new User('John', 'john@test.com');
-    user.save((err) =&gt; {
-        // callback
-    });</code></pre>
+user.save((err) =&gt; {
+    // callback
+});</code></pre>
 
     <h2 id="update-a-model">Update a Model</h2>
 
     <p>Find user with id <code>1</code> and update name to ‘John Doe’:</p>
 
     <pre><code>User.get(1).done((err, user: User) =&gt; {
-        user.name = 'John Doe';
-        user.save((err) =&gt; {
-            // callback
-        });
-    });</code></pre>
+    user.name = 'John Doe';
+    user.save((err) =&gt; {
+        // callback
+    });
+});</code></pre>
 
     <h2 id="destroy-a-model">Destroy a Model</h2>
 
     <p>Find user with id <code>1</code> and delete model:</p>
 
     <pre><code>User.get(1).done((err, user: User) =&gt; {
-        user.name = 'John Doe';
-        user.destroy((err) =&gt; {
-            // callback
-        });
-    });</code></pre>
+    user.name = 'John Doe';
+    user.destroy((err) =&gt; {
+        // callback
+    });
+});</code></pre>
 
     <h2 id="query-models">Query Models</h2>
 
@@ -264,16 +264,16 @@ title: TSFramework - Documentation
     <p>Get a list of users with name ‘John’:</p>
 
     <pre><code>User.find()
-        .where({ name: 'John' })
-        .done((err, users: User[]) =&gt; { /* callback */ });</code></pre>
+    .where({ name: 'John' })
+    .done((err, users: User[]) =&gt; { /* callback */ });</code></pre>
 
     <p>Get 5 users with name ‘John’ and ignore the first 10:</p>
 
     <pre><code>User.find()
-        .where({ name: 'John' })
-        .skip(10)
-        .limit(5)
-        .done((err, users: User[]) =&gt; { /* callback */ });</code></pre>
+    .where({ name: 'John' })
+    .skip(10)
+    .limit(5)
+    .done((err, users: User[]) =&gt; { /* callback */ });</code></pre>
 
 
     <h1 id="view-engine">View Engine</h1>
@@ -281,8 +281,8 @@ title: TSFramework - Documentation
     <p>TSFramework uses <a href="http://embeddedjs.com">EJS</a> for its view engine. To render a view you would use <code>response.render</code> in your controller action:</p>
 
     <pre><code>index(name: string) {
-        this.response.render('index', { user: name });
-    }</code></pre>
+    this.response.render('index', { user: name });
+}</code></pre>
 
     <p>Render view with a layout:</p>
 
@@ -309,13 +309,13 @@ title: TSFramework - Documentation
     <p>With a layout:</p>
 
     <pre><code>&lt;html&gt;
-        &lt;head&gt;
-            &lt;title&gt;&lt;/title&gt;
-        &lt;/head&gt;
-        &lt;body&gt;
-            &lt;%- body %&gt;
-        &lt;/body&gt;
-    &lt;html&gt;</code></pre>
+    &lt;head&gt;
+        &lt;title&gt;&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;%- body %&gt;
+    &lt;/body&gt;
+&lt;html&gt;</code></pre>
 
     <h3 id="sections--contentfor">Sections &amp; contentFor</h3>
 
@@ -325,55 +325,55 @@ title: TSFramework - Documentation
 
     <pre><code>&lt;h1&gt;Hello world!&lt;/h1&gt;
 
-    &lt;%- contentFor('header') %&gt;
-    &lt;style&gt;...&lt;/style&gt;
+&lt;%- contentFor('header') %&gt;
+&lt;style&gt;...&lt;/style&gt;
 
-    &lt;%- contentFor('footer') %&gt;
-    &lt;script&gt;...&lt;/script&gt;</code></pre>
+&lt;%- contentFor('footer') %&gt;
+&lt;script&gt;...&lt;/script&gt;</code></pre>
 
     <p>With a layout:</p>
 
     <pre><code>&lt;html&gt;
-        &lt;head&gt;
-            &lt;title&gt;&lt;/title&gt;
-            &lt;%- header %&gt;
-        &lt;/head&gt;
-        &lt;body&gt;
-            &lt;%- body %&gt;
+    &lt;head&gt;
+        &lt;title&gt;&lt;/title&gt;
+        &lt;%- header %&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;%- body %&gt;
 
-            &lt;footer&gt;
-                &lt;%- footer %&gt;
-            &lt;/footer&gt;
-        &lt;/body&gt;
-    &lt;html&gt;</code></pre>
+        &lt;footer&gt;
+            &lt;%- footer %&gt;
+        &lt;/footer&gt;
+    &lt;/body&gt;
+&lt;html&gt;</code></pre>
 
     <h4 id="optional-section">Optional section:</h4>
 
     <p>By default a section declared in a layout must be implemented in a view, an error will be throw otherwise. You can make a section optional using <code>defineContent</code>:</p>
 
     <pre><code>&lt;html&gt;
-        &lt;head&gt;
-            &lt;title&gt;&lt;/title&gt;
-            &lt;%- defineContent('header') %&gt;
-        &lt;/head&gt;
-        &lt;body&gt;
-            &lt;%- body %&gt;
-        &lt;/body&gt;
-    &lt;html&gt;</code></pre>
+    &lt;head&gt;
+        &lt;title&gt;&lt;/title&gt;
+        &lt;%- defineContent('header') %&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;%- body %&gt;
+    &lt;/body&gt;
+&lt;html&gt;</code></pre>
 
     <h3 id="partials">Partials</h3>
 
     <p>Partial templates - or just “partials” - are another way of for breaking the rendering process into more manageable chunks. With a partial you can put a certain piece of popular code to its own file. Partials are being called using <code>include</code> and can be inserted into both layouts and views:</p>
 
     <pre><code>&lt;html&gt;
-        &lt;head&gt;
-            &lt;title&gt;&lt;/title&gt;
-        &lt;/head&gt;
-        &lt;body&gt;
-            &lt;%- include my_partial.ejs %&gt;
-            &lt;%- body %&gt;
-        &lt;/body&gt;
-    &lt;html&gt;</code></pre>
+    &lt;head&gt;
+        &lt;title&gt;&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;%- include my_partial.ejs %&gt;
+        &lt;%- body %&gt;
+    &lt;/body&gt;
+&lt;html&gt;</code></pre>
 
     <p>For more information EJS template syntax, please see <a href="http://embeddedjs.com/getting_started.html">EJS documentation</a>.</p>
 
@@ -382,9 +382,9 @@ title: TSFramework - Documentation
     <p>TSFramework routes are normally declared in Global.ts via <code>app.router</code>. When you generate a new app, these routes are generated for you by default:</p>
 
     <pre><code>// default routes
-        app.router.map('/', { controller: 'Home', action: 'index' });
-        app.router.map('/:controller/:action?/:id?', { action: 'index' });
-    </code></pre>
+    app.router.map('/', { controller: 'Home', action: 'index' });
+    app.router.map('/:controller/:action?/:id?', { action: 'index' });
+</code></pre>
 
     <p>The first route maps the application root path to action <code>index</code> in <code>Home</code> controller.</p>
 
@@ -417,23 +417,23 @@ title: TSFramework - Documentation
     <p>By default, TSFramework also generates a REST routes for any controller with a model attached:</p>
 
     <pre><code>// REST routes
-        app.router.get('/:controller/:id?', { action: 'find' });
-        app.router.post('/:controller', { action: 'create' });
-        app.router.put('/:controller/:id', { action: 'update' });
-        app.router.delete('/:controller/:id', { action: 'destroy' });
-    </code></pre>
+    app.router.get('/:controller/:id?', { action: 'find' });
+    app.router.post('/:controller', { action: 'create' });
+    app.router.put('/:controller/:id', { action: 'update' });
+    app.router.delete('/:controller/:id', { action: 'destroy' });
+</code></pre>
 
     <h1 id="configuration">Configuration</h1>
 
     <p>TSFramework configuration settings are defined in <code>app.json</code> in JSON format:</p>
 
     <pre><code>{
-        "port": 3000,
-        "logging": {
-            "format": "dev"
-        }
+    "port": 3000,
+    "logging": {
+        "format": "dev"
     }
-    </code></pre>
+}
+</code></pre>
 
     <p>To retrieve specified setting declared in <code>app.json</code>, use <code>app.config.get</code>. The following code would retrieve the value of the default adapter module name shown earlier in app.json:</p>
 
@@ -463,23 +463,23 @@ title: TSFramework - Documentation
     <p>You can declare as many adapters as you need in <code>adapters</code> setting. The following config declares a <code>default</code> adapter using module <code>sails-disk</code>:</p>
 
     <pre><code>{
-        "adapters": {
-            "default": {
-                "module": "sails-disk",
-                "schema": true,
-                "filePath": ".build/database.json"
-            }
+    "adapters": {
+        "default": {
+            "module": "sails-disk",
+            "schema": true,
+            "filePath": ".build/database.json"
         }
-    }</code></pre>
+    }
+}</code></pre>
 </section>
 
 <aside id="sidebar">
   <div class="documentation menu-fixed">
 
     <div class="dropdown">
-      <button class="btn btn-lg btn-default btn-block" data-toggle="dropdown">Reference: v0.2.1</button>
+      <button class="btn btn-lg btn-default btn-block" data-toggle="dropdown">Reference: v0.2.4</button>
       <ul class="dropdown-menu">
-        <li><a href="/documentation/">v0.2.1</a></li>
+        <li><a href="/documentation/">v0.2.4</a></li>
       </ul>
     </div>
     <br><br>
