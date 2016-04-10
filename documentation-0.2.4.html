@@ -28,11 +28,9 @@ title: TSFramework - Documentation
 
     <h1 id="controllers">Controllers</h1>
 
-    <p>Controllers are defined in the <code>/app/controllers/</code> folder. Creating a new controller is easy, all you need to do is extend the Controller. The following controller defines a single action named <code>index</code> that returns ‘Hello world’:</p>
+    <p>Controllers are defined in the <code>/app/controllers/</code> folder. Creating a new controller is easy, all you need to do is extend the TS.Controller. The following controller defines a single action named <code>index</code> that returns ‘Hello world’:</p>
 
-    <pre><code>import {Controller} from "ts-framework/build/Controller";
-
-class HomeController extends Controller {
+    <pre><code>class HomeController extends TS.Controller {
     index() {
         this.content('Hello world!');
     }
@@ -42,9 +40,7 @@ class HomeController extends Controller {
 
     <p>You can also pass parameters into action and TSFramework will automatically convert data into correct type for you:</p>
 
-    <pre><code>import {Controller} from "ts-framework/build/Controller";
-
-class HomeController extends Controller {
+    <pre><code>class HomeController extends TS.Controller {
     hello(name: string) {
         this.content('Hello: ' + name);
     }
@@ -149,16 +145,14 @@ this.response.removeCookie('name', '/admin');</code></pre>
 
     <p>Action filters are method that run before, after or around a controller action.</p>
 
-    <p>Filters may halt the request cycle. A common filter is one which requires that a user is logged in for an action to be run. You can add a filter to a controller this way by passing a function that accepts ActionFilterContext as a parameter:</p>
+    <p>Filters may halt the request cycle. A common filter is one which requires that a user is logged in for an action to be run. You can add a filter to a controller this way by passing a function that accepts TS.ActionFilterContext as a parameter:</p>
 
-    <pre><code>import {Controller, ActionFilterContext} from "ts-framework/build/Controller";
-
-class UserController extends Controller {
+    <pre><code>class UserController extends TS.Controller {
     static configure() {
         this.addBeforeFilter(this.authenticate);
     }
 
-    static authenticate(context: ActionFilterContext) {
+    static authenticate(context: TS.ActionFilterContext) {
         var isAuthenticated = ...;
         if (!isAuthenticated)
             context.reply.redirect('/login');
@@ -167,26 +161,24 @@ class UserController extends Controller {
     }
 }</code></pre>
 
-    <p>Alternatively you can also create a class that extends ActionFilter. The advantage of doing this is that you can have both <code>before</code> and <code>after</code> filters in the same class which will create a <code>around</code> filter:</p>
+    <p>Alternatively you can also create a class that extends TS.ActionFilter. The advantage of doing this is that you can have both <code>before</code> and <code>after</code> filters in the same class which will create a <code>around</code> filter:</p>
 
-    <pre><code>import {Controller, ActionFilter, IActionFilterContext} from "ts-framework/build/Controller";
-
-class SpeedLogger extends ActionFilter {
+    <pre><code>class SpeedLogger extends TS.ActionFilter {
     private start: number;
 
-    before(context: IActionFilterContext) {
+    before(context: TS.IActionFilterContext) {
         this.start = new Date().getTime();
         context.next();
     }
 
-    after(context: IActionFilterContext) {
+    after(context: TS.IActionFilterContext) {
         var elapse = new Date().getTime() - this.start;
         ...
         context.next();
     }
 }
 
-class UserController extends Controller {
+class UserController extends TS.Controller {
     static configure() {
         this.addFilter(SpeedLogger);
     }
@@ -204,11 +196,9 @@ class UserController extends Controller {
 
     <p>TSFramework uses Waterline ORM (created by Sails.js). Waterline allows developers to interact with models the same way regardless of data source they’re using.</p>
 
-    <p>Models are defined in the <code>/app/models/</code> folder .To create a model, just extends Model. The following User model defines 3 attributes <code>name</code>, <code>email</code> and  <code>age</code>:</p>
+    <p>Models are defined in the <code>/app/models/</code> folder .To create a model, just extends TS.Model. The following User model defines 3 attributes <code>name</code>, <code>email</code> and  <code>age</code>:</p>
 
-    <pre><code>import {Model} from "ts-framework/build/Model";
-
-class User extends Model {
+    <pre><code>class User extends TS.Model {
     name: string;
     email: string;
     age: number;
@@ -216,9 +206,7 @@ class User extends Model {
 
     <p>Model attributes can also be validated like so:</p>
 
-    <pre><code>import {Model} from "ts-framework/build/Model";
-
-class User extends Model {
+    <pre><code>class User extends TS.Model {
     name: string;
     email: string;
     age: number;
@@ -391,7 +379,7 @@ user.save((err) =&gt; {
 
     <h1 id="routing">Routing</h1>
 
-    <p>TSFramework routes are normally declared in app.ts via <code>app.router</code>. When you generate a new app, these routes are generated for you by default:</p>
+    <p>TSFramework routes are normally declared in Global.ts via <code>app.router</code>. When you generate a new app, these routes are generated for you by default:</p>
 
     <pre><code>// default routes
     app.router.map('/', { controller: 'Home', action: 'index' });
@@ -489,7 +477,7 @@ user.save((err) =&gt; {
   <div class="documentation menu-fixed">
 
     <div class="dropdown">
-      <button class="btn btn-lg btn-default btn-block" data-toggle="dropdown">Reference: v0.2.6</button>
+      <button class="btn btn-lg btn-default btn-block" data-toggle="dropdown">Reference: v0.2.4</button>
       <ul class="dropdown-menu">
         <li><a href="/documentation/">v0.2.6</a></li>
         <li><a href="/documentation-0.2.4/">v0.2.4</a></li>
