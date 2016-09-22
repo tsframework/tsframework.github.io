@@ -1,0 +1,101 @@
+.navbar {
+  min-height: 80px;
+
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+
+  .navbar-brand {
+    font-size: 25px;
+    line-height: 50px;
+    height: 80px;
+  }
+
+  .nav {
+    margin-right: 50px;
+
+    li {
+      font-size: 17px;
+      line-height: 39px;
+      height: 70px;
+      margin-top: 20px;
+
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+  }
+
+  .dropdown-toggle, .open .dropdown-toggle {
+    color: @navbar-default-link-color;
+    &:hover {
+      color: @navbar-default-link-hover-color;
+    }
+    &:focus {
+      color: @navbar-default-link-hover-color;
+    }
+  }
+
+  .dropdown-menu {
+    border-radius: 5px;
+    border: solid 1px #c8c8c8;
+    margin-top: -20px;
+    left: -18px;
+
+    li {
+      height: auto;
+      margin: auto auto;
+    }
+  }
+}
+
+.section {
+  &.section-blue {
+    text-align: center;
+    color: @section-blue-text-color;
+    background-color: @section-blue-bg-color;
+
+    h1 {
+      margin: 0 auto;
+      margin-top: 150px;
+      margin-bottom: 25px;
+      color: @section-blue-title-color;
+
+      font-size: 40px;
+    }
+
+    p {
+      font-family: "Architects Daughter","Helvetica Neue",Helvetica,Arial,serif;
+      font-size: 20px;
+
+      margin-top: 25px;
+      margin-bottom: 65px;
+    }
+  }
+
+  &.section-grey {
+    text-align: start;
+  }
+}
+
+.documentation {
+  h2 {
+    margin: 25px auto;
+    padding: 10px 5px;
+
+    border-bottom: dashed 1px rgba(225, 227, 226, 0.42);
+  }
+
+  h3 {
+    margin: 15px auto;
+    padding: 15px 5px 5px 5px;
+  }
+
+  ul {
+    list-style: none;
+    li {
+      margin: 5px auto;
+    }
+  }
+}

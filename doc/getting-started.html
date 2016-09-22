@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Getting started | TS Framework</title>
+        <!-- Bootstrap -->
+        <link href="/styles/app.css" rel="stylesheet">
+        <link rel='stylesheet' href='//fonts.googleapis.com/css?family=Architects+Daughter'>
+        <link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css'>
+        <link rel="stylesheet" href="//yandex.st/highlightjs/8.0/styles/default.min.css">
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body class="documentation">
+    <!-- Navigation -->
+    <nav class="navbar navbar-default topnav" role="navigation">
+        <div class="container topnav">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand topnav" href="/">TSFramework</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/doc/getting-started.html"><i class="fa fa-home fa-fw" aria-hidden="true"></i>Getting started</a>
+                    </li>
+                    <li>
+                        <a href="/doc/installation.html"><i class="fa fa-book fa-fw" aria-hidden="true"></i>Documentation</a>
+                    </li>
+                    <li class="dropdown community-dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Community <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="https://github.com/tsframework/ts-framework"><i class="fa fa-github fa-fw" aria-hidden="true"></i>&nbsp;Github</a></li>
+                            <li><a href="https://github.com/tsframework/ts-framework/issues"><i class="fa fa-tasks fa-fw" aria-hidden="true"></i>&nbsp;Issues</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#contact"><i class="fa fa-envelope-o fa-fw" aria-hidden="true"></i> Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+<div id="top" class="section section-blue">
+    <div class="container">
+        <h1>Documentation</h1>
+    </div>
+</div>
+
+<div class="section section-grey">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 documentation-menu">
+                <h2>Getting started</h2>
+                <ul>
+                    <li><a href="/doc/getting-started.html">Getting Started</a></li>
+                    <li><a href="/doc/architecture.html">Architecture</a></li>
+                    <li><a href="/doc/startup-sequence.html">Startup Sequence</a></li>
+                    <li><a href="/doc/request-lifecycle.html">Request Lifecycle</a></li>
+                </ul>
+                <h2>Services</h2>
+                <ul>
+                    <li><a href="/doc/configuration.html">Configuration</a></li>
+                    <li><a href="/doc/controllers.html">Controllers</a></li>
+                    <li><a href="/doc/router.html">Router</a></li>
+                    <li><a href="/doc/views.html">Views</a></li>
+                    <li><a href="/doc/core.html">Core (Injection Container)</a></li>
+                </ul>
+                <h2>Advanced</h2>
+                <ul>
+                    <li><a href="/doc/services-providers.html">Service providers</a></li>
+                    <li><a href="/doc/extending.html">Extending the framework</a></li>
+                </ul>            </div>
+            <div class="col-md-9 documentation-content">
+                <h2 id="getting-started">Getting started</h2>
+<p>For now the framework is still in heavy developement and isn’t published as an npm package.</p>
+<p>However, if you want to use it, you can still get it from the source repository and compile it yourself.</p>
+<h3 id="downloading-and-compiling-from-source">Downloading and compiling from source</h3>
+<p>To unleash the power of TS framework, we are going to create two folders to hold our projet.
+One will contain the framework source and build.
+The other will contain your project created from a base application.</p>
+<p>All followings commands will be executed in a bash like environment with typescript and git installed</p>
+<ol>
+<li><p>Clone the ts-framework repository</p>
+ <pre><code class="hljs">git <span class="hljs-keyword">clone</span> <span class="hljs-title">https</span>://github.com/tsframework/ts-framework.git</code></pre>
+</li>
+<li><p>Load dependencies and build the framework itself</p>
+ <pre><code class="hljs">cd ts-framework
+npm install
+npm <span class="hljs-command">run</span>-<span class="hljs-keyword">script</span> build</code></pre>
+
+<p> If you get errors at this step, please check <a href="#troubleshooting-guide">the troubleshoot guide</a></p>
+</li>
+<li><p>Run the automatic tests (Skip if you havn’t modifyed the base ts-framework)</p>
+ <pre><code class="hljs">npm <span class="hljs-command">run</span>-<span class="hljs-keyword">script</span> test</code></pre>
+</li>
+<li><p>Create a local npm package link</p>
+ <pre><code class="hljs"><span class="hljs-built_in">npm</span> link</code></pre>
+
+<p> This will publish ts-framework locally.</p>
+</li>
+<li><p>Create the example app</p>
+ <pre><code class="hljs"><span class="hljs-keyword">cd</span> ..
+git clone http<span class="hljs-variable">s:</span>//github.<span class="hljs-keyword">com</span>/tsframework/<span class="hljs-keyword">ts</span>-framework-app.git</code></pre>
+</li>
+<li><p>Link to the local framework and load dependencies</p>
+ <pre><code class="hljs"><span class="hljs-built_in">npm</span> link ts-framework
+<span class="hljs-built_in">npm</span> install</code></pre>
+</li>
+<li><p>Start the default app in dev mode (auto rebuild server/client code and clients assets on change)</p>
+ <pre><code class="hljs">$(npm <span class="hljs-keyword">bin)/gulp </span>watch</code></pre>
+
+</li>
+</ol>
+<p>That’s it, a default application must be available at <a href="http://localhost:3000">http://localhost:3000</a>.</p>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Bootstrap script -->
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+  </body>
+</html>

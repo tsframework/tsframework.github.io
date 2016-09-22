@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Startup Sequence | TS Framework</title>
+        <!-- Bootstrap -->
+        <link href="/styles/app.css" rel="stylesheet">
+        <link rel='stylesheet' href='//fonts.googleapis.com/css?family=Architects+Daughter'>
+        <link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css'>
+        <link rel="stylesheet" href="//yandex.st/highlightjs/8.0/styles/default.min.css">
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body class="documentation">
+    <!-- Navigation -->
+    <nav class="navbar navbar-default topnav" role="navigation">
+        <div class="container topnav">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand topnav" href="/">TSFramework</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/doc/getting-started.html"><i class="fa fa-home fa-fw" aria-hidden="true"></i>Getting started</a>
+                    </li>
+                    <li>
+                        <a href="/doc/installation.html"><i class="fa fa-book fa-fw" aria-hidden="true"></i>Documentation</a>
+                    </li>
+                    <li class="dropdown community-dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Community <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="https://github.com/tsframework/ts-framework"><i class="fa fa-github fa-fw" aria-hidden="true"></i>&nbsp;Github</a></li>
+                            <li><a href="https://github.com/tsframework/ts-framework/issues"><i class="fa fa-tasks fa-fw" aria-hidden="true"></i>&nbsp;Issues</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#contact"><i class="fa fa-envelope-o fa-fw" aria-hidden="true"></i> Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+<div id="top" class="section section-blue">
+    <div class="container">
+        <h1>Documentation</h1>
+    </div>
+</div>
+
+<div class="section section-grey">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 documentation-menu">
+                <h2>Getting started</h2>
+                <ul>
+                    <li><a href="/doc/getting-started.html">Getting Started</a></li>
+                    <li><a href="/doc/architecture.html">Architecture</a></li>
+                    <li><a href="/doc/startup-sequence.html">Startup Sequence</a></li>
+                    <li><a href="/doc/request-lifecycle.html">Request Lifecycle</a></li>
+                </ul>
+                <h2>Services</h2>
+                <ul>
+                    <li><a href="/doc/configuration.html">Configuration</a></li>
+                    <li><a href="/doc/controllers.html">Controllers</a></li>
+                    <li><a href="/doc/router.html">Router</a></li>
+                    <li><a href="/doc/views.html">Views</a></li>
+                    <li><a href="/doc/core.html">Core (Injection Container)</a></li>
+                </ul>
+                <h2>Advanced</h2>
+                <ul>
+                    <li><a href="/doc/services-providers.html">Service providers</a></li>
+                    <li><a href="/doc/extending.html">Extending the framework</a></li>
+                </ul>            </div>
+            <div class="col-md-9 documentation-content">
+                <h2 id="startup-sequence">Startup Sequence</h2>
+<p>Basicaly an application is nothing more than a bunch of services running together to form the final product.</p>
+<p>To stay simple and non bloated, the framework itself is really lightweight and does nothing more than loading and registering services together.
+All the functionality is provided by services that you can freely enable or disable.
+Also in TS framework, each service is independent and can run without the full framework.</p>
+<p>When booting the application, the framework will call a list of <code>ServiceProvider</code> responsible of registering and booting each service.</p>
+<h3 id="the-entry-point">The entry point</h3>
+<p>The initial starting point of the application is the file app.ts inside your project <code>src/</code> directory.</p>
+<pre><code class="hljs js"><span class="hljs-keyword">import</span> {Application} <span class="hljs-keyword">from</span> <span class="hljs-string">"tsframework-full"</span>;
+
+<span class="hljs-keyword">let</span> services = [
+    <span class="hljs-string">"Core/TSFWServiceProvider.js"</span>,
+    <span class="hljs-string">"Configuration/ConfigurationServiceProvider.js"</span>,
+    <span class="hljs-string">"Controller/ControllerServiceProvider.js"</span>,
+    <span class="hljs-string">"Http/HttpServiceProvider.js"</span>,
+    <span class="hljs-string">"View/ViewServiceProvider.js"</span>
+];
+
+<span class="hljs-keyword">let</span> app: Application = <span class="hljs-keyword">new</span> Application(process.cwd(), services);
+    app.start();</code></pre>
+
+<p>This file declare which services providers to load at startup. Then launch the actual booting process.
+It enable you to alter the framework behavior by modifying the service providers loaded at startup.</p>
+<p>Services providers are an advanced topic and are better explained <a href="/doc/services-providers.html">here</a></p>
+<h2 id="booting-sequence">Booting sequence</h2>
+<p>When booting, the framework goes into a number of steps to give each components a chance to start up correctly.</p>
+<p>Each component must have a service provider that will be called in turn to give them a chance to start the component.
+The list of service providers and their order is defined as part of the entry point of the application.
+So making it easy to alter started components and their order.</p>
+<p>In the above example, the application will start the base framework components first (<code>TSFWServiceProvider</code>).
+Then comes the Configuration (<code>ConfigurationServiceProvider</code>) component and the Controller system (<code>ControllerServiceProvider</code>).</p>
+<p>After that comes the <code>HttpServiceProvider</code> will start the HttpServer that will receive requests and pass them to the controllers.
+Finally the application start the <code>ViewServiceProvider</code> which will handle views returned by Controllers.</p>
+<p>Usually, you’ll want to add additional providers to boot up your application right after the framework.</p>
+<p>The framework has now finished his job and is ready to give the full power to your application to start answering requests!</p>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Bootstrap script -->
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+  </body>
+</html>
