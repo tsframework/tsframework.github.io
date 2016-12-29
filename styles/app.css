@@ -3895,30 +3895,28 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .navbar .nav li {
   font-size: 17px;
   line-height: 39px;
-  height: 70px;
+  height: 50px;
   margin-top: 20px;
   margin-left: 10px;
   margin-right: 10px;
 }
-.navbar .dropdown-toggle,
-.navbar .open .dropdown-toggle {
+.navbar .community-dropdown .dropdown-toggle,
+.navbar .community-dropdown .open .dropdown-toggle {
   color: #fdfdfe;
 }
-.navbar .dropdown-toggle:hover,
-.navbar .open .dropdown-toggle:hover {
+.navbar .community-dropdown .dropdown-toggle:hover,
+.navbar .community-dropdown .open .dropdown-toggle:hover {
   color: #9cdbfe;
 }
-.navbar .dropdown-toggle:focus,
-.navbar .open .dropdown-toggle:focus {
+.navbar .community-dropdown .dropdown-toggle:focus,
+.navbar .community-dropdown .open .dropdown-toggle:focus {
   color: #9cdbfe;
 }
-.navbar .dropdown-menu {
+.navbar .community-dropdown .dropdown-menu {
   border-radius: 5px;
   border: solid 1px #c8c8c8;
-  margin-top: -20px;
-  left: -18px;
 }
-.navbar .dropdown-menu li {
+.navbar .community-dropdown .dropdown-menu li {
   height: auto;
   margin: auto auto;
 }

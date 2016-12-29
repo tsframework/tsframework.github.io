@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Startup Sequence | TS Framework</title>
+        <title>Controllers | TS Framework</title>
         <!-- Bootstrap -->
         <link href="/styles/app.css" rel="stylesheet">
         <link rel='stylesheet' href='//fonts.googleapis.com/css?family=Architects+Daughter'>
@@ -39,7 +39,7 @@
                         <a href="/doc/getting-started.html"><i class="fa fa-home fa-fw" aria-hidden="true"></i>Getting started</a>
                     </li>
                     <li>
-                        <a href="/doc/installation.html"><i class="fa fa-book fa-fw" aria-hidden="true"></i>Documentation</a>
+                        <a href="/doc/index.html"><i class="fa fa-book fa-fw" aria-hidden="true"></i>Documentation</a>
                     </li>
                     <li class="dropdown community-dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Community <span class="caret"></span></a>
@@ -88,7 +88,64 @@
                     <li><a href="/doc/extending.html">Extending the framework</a></li>
                 </ul>            </div>
             <div class="col-md-9 documentation-content">
-                <h2 id="installation">Installation</h2>
+                <h2 id="controllers">Controllers</h2>
+<p>As with any MVC framework, there is a concept of a controller.</p>
+<h3 id="introduction">Introduction</h3>
+<p>A controller is a piece of code (in typescript a class) that will contains all handling logic for on or more type of request.
+His job is to provide a response to a request.</p>
+<p>By convention, all controllers are stored in the <code>controllers</code> directory,
+but this can be changed as you see fit as TSFramework doesn’t enforce anything.</p>
+<h3 id="defining-your-first-controller">Defining your first controller</h3>
+<p>A controller can be any class that <strong>does something</strong>.
+In fact, TSFramework doesn’t force you to extends any class, so that you can use as a controller any method of any class.</p>
+<p>However for convenience, TSFramework provide a class called <code>HttpController</code>.
+By extending this class, you gain access to request and response objects, but also to several helpers for sending responces.</p>
+<p>Below is an example of a basic controller class that should be self explanatory.</p>
+<pre><code class="hljs js"><span class="hljs-keyword">import</span> {HttpController} <span class="hljs-keyword">from</span> <span class="hljs-string">"tsframework-full"</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">IndexController</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">HttpController</span>
+</span>{
+    public getIndex()
+    {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.view(<span class="hljs-string">'welcome.ejs'</span>);
+    }
+}</code></pre>
+
+<p>This controller extends the HttpController class, enabling the use of helpers methods like <code>view</code> to return a responce.</p>
+<p>TSFramework take care of resolving controllers on a per request basis so that each request has his very own context.
+That means that you don’t have to care about class properties being shared between requests.
+It also means that you can use dependency injection to automatically bind dependencies of your controllers everytime a request arrives.</p>
+<h3 id="binding-your-controller-to-a-route">Binding your controller to a route</h3>
+<p>TSFramework require you to bind controllers to routes for them to be usable.</p>
+<p>It’s recommended to bind all of your routes at application startup in the <code>start</code> method of <code>AppServiceProvider</code>.</p>
+<p>Here is a start method that register the index route from our controller:</p>
+<pre><code class="hljs js">start(container:Huject.Container) {
+    <span class="hljs-comment">//Get the router instance</span>
+    <span class="hljs-keyword">var</span> router: Router = container.resolve(<span class="hljs-string">"Router"</span>);
+
+    <span class="hljs-comment">//Bind a route to our router</span>
+    router.get(<span class="hljs-string">"/"</span>, IndexController, <span class="hljs-string">"getIndex"</span>);
+
+    <span class="hljs-comment">//Display all registered routes</span>
+    <span class="hljs-built_in">console</span>.log(container.resolve(<span class="hljs-string">"Router"</span>).printRoutes());
+}</code></pre>
+
+<p>The application service provider is a very good place to define which services your application is providing!</p>
+<p><a href="/doc/services-providers.html#purpose">Read more on service providers</a> to understand the magic behind them.</p>
+<h3 id="returning-a-response">Returning a response</h3>
+<p>Most of your controllers will have to return a response to every request.
+The base class <code>HttpController</code> provide the following methods for your convenience:</p>
+<pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HttpController</span>
+</span>{
+    protected redirect(url: string, status: number = <span class="hljs-number">302</span>);
+    protected content(text: string, contentType?: string);
+    protected json(data: {});
+    protected file(path: string);
+    protected download(path: string, filename?: string);
+    protected view(template: string, options?: {});
+}</code></pre>
+
+<p>Of course if you want full control, you can still set values directly on the response object, then call send() manually.</p>
 
             </div>
         </div>

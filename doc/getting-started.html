@@ -39,7 +39,7 @@
                         <a href="/doc/getting-started.html"><i class="fa fa-home fa-fw" aria-hidden="true"></i>Getting started</a>
                     </li>
                     <li>
-                        <a href="/doc/installation.html"><i class="fa fa-book fa-fw" aria-hidden="true"></i>Documentation</a>
+                        <a href="/doc/index.html"><i class="fa fa-book fa-fw" aria-hidden="true"></i>Documentation</a>
                     </li>
                     <li class="dropdown community-dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Community <span class="caret"></span></a>
@@ -102,8 +102,10 @@ The other will contain your project created from a base application.</p>
 </li>
 <li><p>Load dependencies and build the framework itself</p>
  <pre><code class="hljs">cd ts-framework
-npm install
-npm <span class="hljs-command">run</span>-<span class="hljs-keyword">script</span> build</code></pre>
+npm <span class="hljs-operator"><span class="hljs-keyword">install</span> -<span class="hljs-keyword">g</span> typings
+npm <span class="hljs-keyword">install</span>
+typings <span class="hljs-keyword">install</span>
+npm run-script <span class="hljs-keyword">build</span></span></code></pre>
 
 <p> If you get errors at this step, please check <a href="#troubleshooting-guide">the troubleshoot guide</a></p>
 </li>
